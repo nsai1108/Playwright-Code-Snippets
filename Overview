@@ -1,0 +1,5 @@
+This asset presents an enterprise grade automation accelerator built on Playwright and TypeScript designed to modernize and streamline end to end testing. It incorporates scalable architecture patterns such as POM and COM, 
+supports CI/CD with parallel sharding, and unifies UI and API testing within a single framework. The solution enhances quality through visual and accessibility validations, performance baselines, resilient network-mocking, 
+and trace-driven debugging. It directly addresses challenges found in legacy E2E stacks such as brittleness, cross-browser inconsistencies, and slow execution by offering a cloud ready, maintainable and standards aligned framework. 
+The Playwright Automation framework emphasizes semantic locators, component-oriented design, API first data setup, and high performance parallelization, enabling faster feedback cycles, reduced flakiness and improved release confidence 
+across Chromium, Firefox and Webkit environments. 
