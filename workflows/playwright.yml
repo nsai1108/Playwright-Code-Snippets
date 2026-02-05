@@ -1,0 +1,57 @@
+name: Playwright Tests (Sharded)
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1,2,3,4,5,6,7,8,9,10]
+        shardTotal: [10]
+
+    steps:
+      # ---------------------------
+      # Checkout repository
+      # ---------------------------
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # ---------------------------
+      # Cache node_modules for speed
+      # ---------------------------
+     .js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # ---------------------------
+      # Install dependencies
+      Run sharded Playwright tests
+      # ---------------------------
+      - name: Run Playwright tests (shard ${{ matrix.shardIndex }} of ${{ matrix.shardTotal }})
+        run: |
+          npx playwright test \
+            --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} \
+            --reporter=line,html \
+            --workers=4
+
+      # ---------------------------
+      # Upload test results (each shard uploads)
+      # ---------------------------
+      - name: Upload HTML Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: playwright-report-${{ matrix.shardIndex }}
+          path: playwright-report
